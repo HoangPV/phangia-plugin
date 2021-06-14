@@ -277,13 +277,13 @@ if ( ! class_exists( 'Appside_Master_Helper_Functions' ) ) {
 		 * The post navigation
 		 * @since 1.0.0
 		 * */
-		public function post_navigation() {
-			the_post_navigation( array(
-				'prev_text' => '<i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;' . esc_html__( 'Prev Post', 'aapside-master' ),
-				'next_text' => esc_html__( 'Next Post', 'aapside-master' ) . '&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
-			) );
-			echo wp_kses_post( '<div class="clearfix"></div>' );
-		}
+            public function post_navigation() {
+                the_post_navigation( array(
+                    'prev_text' => '<i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;' . esc_html__( 'Prev Post', 'aapside-master' ),
+                    'next_text' => esc_html__( 'Next Post', 'aapside-master' ) . '&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+                ) );
+                echo wp_kses_post( '<div class="clearfix"></div>' );
+            }
 
 		/**
 		 * is_home_page()
