@@ -333,4 +333,56 @@ class Data {
 		return $page_id;
 
 	}
+
+	public function is_appside_active() {
+	    $theme_name_array = ['Aapside', 'Aapside Child'];
+	    $current_theme = wp_get_theme();
+	    $current_theme_name = $current_theme->get('Name');
+	    return in_array($current_theme_name, $theme_name_array)? true: false;
+    }
+
+    public function is_appside_master_active() {
+	    return defined('APPSIDE_MASTER_SELF_PATH') ? true:false;
+    }
+
+    public function get_post_list_by_post_type($post_type) {
+	    $return_val = [];
+	    $args = [
+            'post_type' => $post_type,
+            'post_per_pages' => -1
+        ];
+
+	    $all_post = new \WP_Query($args);
+
+	    while ($all_post->have_posts()) {
+	        $all_post->the_post();
+	        $return_val[get_the_ID()] = get_the_title();
+        }
+
+        return $return_val;
+    }
+
+    public function render_elementor_content($content=null) {
+	    $return_val = '';
+	    if (defined('ELEMENTOR_VERSION')) {
+	        $el_plugin_instance = \Elementor\Plugin::instance();
+	        $return_val = $el_plugin_instance->frontend->get_builder_content($content);
+        }
+
+	    return $return_val;
+    }
+
+    public function get_nav_menu_list($output='slug') {
+	    $return_val = '';
+	    $all_menu_list = wp_get_nav_menus();
+	    foreach ($all_menu_list as $menu) {
+	        if ($output=='slug') {
+	            $return_val[$menu->slug] = $menu->name;
+            } else {
+	            $return_val[$menu->term_id] = $menu->name;
+            }
+        }
+
+	    return $return_val;
+    }
 }
